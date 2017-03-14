@@ -1,0 +1,77 @@
+//包结构
+//请求包 0x0a + HTHeadV3 + ReqBody + 0x0b
+//响应包 0x0a + HTHeadV3 + RspBody + 0x0b
+
+//HTHeadV3结构体参见ht_head_v3.h
+//struct HTHeadV3 
+//{
+//	uint8_t ucFlag;			//0xF0客户端请求，0xF1 服务器应答, 0xF2  服务器主动发包, 0xF3  客户端应答, 0xF4 服务器之间的包
+//	uint8_t ucVersion;		//版本号  VER_MMEDIA = 4
+//	uint8_t ucKey;			//加密类型  E_NONE_KEY = 0, E_SESSION_KEY = 1, E_RAND_KEY = 2, E_SERV_KEY= 3
+//	uint8_t ucReserved;		//保留字节
+//	uint16_t usCmd;			//命令字
+//	uint16_t usSeq;			//序列号
+//	uint32_t uiFrom;		//源UID  FROM_SERVER = 0	
+//	uint32_t uiTo;			//目的UID TO_SERVER = 0	
+//	uint32_t uiLen;			//包总长度
+//	uint16_t usRet;			//返回码
+//	uint16_t usSysType;		//包来源
+//	char acEcho[8];			//回带字段
+//	char acReserved[16];	//保留字段
+//};
+
+import "HT_favorite_body.proto";
+package ht.favorite;
+
+//根据不同的cmd_type来使用不同的body
+enum CMD_TYPE 
+{     
+	CMD_ADD					= 1;	//收藏
+	CMD_DEL					= 2;	//删除
+	CMD_GET					= 3;	//获取
+	CMD_UPDATE_TAG			= 4;	//更新标签
+	CMD_SEARCH_TAG			= 5;	//按标签搜索
+	CMD_SEARCH_TEXT			= 6;	//搜索
+}
+
+enum SYS_TYPE
+{
+	SYS_LUA      			= 1;            //李凌的openresty
+	SYS_TYPE_TOOL			= 20;			//测试工具
+}
+
+enum RET_CODE
+{
+	RET_SUCCESS					= 0;			//成功
+	RET_REPEAT_ADD				= 100;			//重复添加
+	RET_NOT_CHANGE				= 101;			//没有变化
+	RET_NO_MORE					= 102;			//没有内容了
+	
+	RET_PB_ERR					= 500;			//pb序列化反序列化失败
+	RET_INTERNAL_ERR			= 501;			//内部错误
+	RET_SESS_TIMEOUT_ERR		= 502;			//内部超时
+	RET_INPUT_PARAM_ERR			= 503;			//输入参数不合法
+	RET_DB_ERR					= 504;			//DB错误
+	RET_NOT_EXIST				= 505;			//记录不存在
+}
+
+message ReqBody
+{
+	optional AddReqBody			add_reqbody			= 1;
+	optional DelReqBody			del_reqbody			= 2;
+	optional GetReqBody			get_reqbody			= 3;
+	optional UpdateTagReqBody	update_tag_reqbody	= 4;
+	optional SearchTagReqBody	search_tag_reqbody	= 5;
+	optional SearchTextReqBody	search_text_reqbody	= 6;
+}
+
+message RspBody
+{
+	optional AddRspBody			add_rspbody			= 1;
+	optional DelRspBody			del_rspbody			= 2;
+	optional GetRspBody			get_rspbody			= 3;
+	optional UpdateTagRspBody	update_tag_rspbody	= 4;
+	optional SearchTagRspBody	search_tag_rspbody	= 5;
+	optional SearchTextRspBody	search_text_rspbody	= 6;
+}
+

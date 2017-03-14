@@ -1,0 +1,121 @@
+
+package ht.favorite;
+
+enum TYPE_FAVORATE
+{
+	TYPE_TEXT		= 1;	//文字
+	TYPE_VOICE		= 2;	//语音
+	TYPE_CORR		= 3;	//改错
+	TYPE_PIC		= 4;	//图片
+	TYPE_MNT		= 5;	//信息流	
+}
+
+message ImageBody
+{
+	optional bytes  	thumb_url		=  1;	//小图的url
+	optional bytes  	big_url			=  2;	//大图的url。腾讯云环境下，客户端提交的时候只提交大图url
+	optional uint32		width			=  3;	//图片的原始宽度
+	optional uint32		height			=  4; 	//图片的原始高度
+}
+
+message VoiceBody
+{
+	optional 	bytes  		url			=  1;		//语音文件的url
+	optional	uint32		duration	=  2;		//语音时长
+	optional	uint32		size		=  3; 		//语音文件大小
+}
+
+message CorrectContent
+{
+	optional 	bytes		content		=  1;		//原文
+	optional	bytes		correction	=  2;		//修改之后的
+}
+
+message FavoriteContent
+{
+	optional string 		obid 		= 1;	//插入的时候不填，查询的时候会返回
+	optional uint32 		src_uid		= 2;
+	optional TYPE_FAVORATE	type		= 3;	//收藏类型
+	optional bytes			text		= 4;	//文字
+	optional VoiceBody		voice		= 5;	//语音
+	repeated CorrectContent correction	= 6;	//改错
+	optional ImageBody		image		= 7;	//第一张图片
+	optional bytes			mid			= 8;	//帖子的id
+	repeated string			tags		= 9;	//标签
+}	
+
+message AddReqBody
+{
+	optional FavoriteContent content	= 1;	//要收藏的内容
+}
+
+message AddRspBody
+{
+	optional bytes			obid		= 1;	//刚刚添加的收藏的obejectid
+	optional uint32			last_ts		= 2;	//收藏列表的最新时间戳
+}
+
+message DelReqBody
+{
+	optional bytes			obid		= 1;	//刚刚添加的收藏的obejectid
+}
+
+message DelRspBody
+{
+	optional uint32			last_ts		= 1;	//收藏列表的最新时间戳
+}
+
+message GetReqBody
+{
+	optional string 		index		= 1;	//上次取到的下标，其实就是objectid， 第一次取填0
+	optional uint32			last_ts		= 2;	//客户端本地的最新时间戳,客户端只有在全部拉取完之后才给last_ts赋值
+}
+
+message GetRspBody
+{
+	repeated FavoriteContent 	content_list 	= 1;
+	optional string 			index			= 2;	//下次使用这个index来取,其实就是objectid
+	optional uint32 			more			= 3;	//是否还有更多
+	optional uint32				last_ts			= 4;	//服务端的最新时间戳
+}
+
+message UpdateTagReqBody
+{
+	optional bytes			obid		= 1;	//刚刚添加的收藏的obejectid
+	repeated string 		tags 		= 2;	//标签
+}
+
+message UpdateTagRspBody
+{
+	optional uint32			last_ts		= 1;	//收藏列表的最新时间戳
+}
+
+message SearchTagReqBody
+{
+	optional string 		tag 		= 1;	//要查找的标签
+	optional uint32			last_ts		= 2;	//客户端本地的最新时间戳,客户端只有在全部拉取完之后才给last_ts赋值
+	optional string 		index 		= 3;	//下次使用这个index来取,其实就是objectid
+}
+
+message SearchTagRspBody
+{
+	repeated FavoriteContent 	content_list 	= 1;
+	optional string 			index			= 2;	//下次使用这个index来取,其实就是objectid
+	optional uint32 			more			= 3;	//是否还有更多
+	optional uint32				last_ts			= 4;	//服务端的最新时间戳
+}
+
+message SearchTextReqBody
+{
+	optional string 		text 		= 1;	//要查找的文本
+	optional uint32			last_ts		= 2;	//客户端本地的最新时间戳,客户端只有在全部拉取完之后才给last_ts赋值
+	optional string 		index 		= 3;	//下次使用这个index来取,其实就是objectid
+}
+
+message SearchTextRspBody
+{
+	repeated FavoriteContent 	content_list 	= 1;
+	optional string 			index			= 2;	//下次使用这个index来取,其实就是objectid
+	optional uint32 			more			= 3;	//是否还有更多
+	optional uint32				last_ts			= 4;	//服务端的最新时间戳
+}
