@@ -4,7 +4,7 @@
 
 package common
 
-import "github.com/BLHT/HT_GOGO/gotcp"
+import "github.com/businiaowyf/wyfgo/gotcp"
 
 // Error represents an error returned in a command reply.
 type Error string

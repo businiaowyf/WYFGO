@@ -14,7 +14,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/BLHT/HT_GOGO/gotcp"
+	"github.com/businiaowyf/wyfgo/gotcp"
 )
 
 var nowFunc = time.Now // for testing

@@ -3,8 +3,8 @@ package common
 import (
 	"time"
 
-	"github.com/BLHT/HT_GOGO/gotcp"
-	"github.com/BLHT/HT_GOGO/gotcp/tcpfw/include/ht_offline"
+	"github.com/businiaowyf/wyfgo/gotcp"
+	"github.com/businiaowyf/wyfgo/gotcp/tcpfw/include/ht_offline"
 	"github.com/golang/protobuf/proto"
 )
 

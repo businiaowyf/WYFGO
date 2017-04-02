@@ -1,8 +1,8 @@
 package common
 
 import (
-	"github.com/BLHT/HT_GOGO/gotcp"
-	"github.com/BLHT/HT_GOGO/gotcp/libcomm"
+	"github.com/businiaowyf/wyfgo/gotcp"
+	"github.com/businiaowyf/wyfgo/gotcp/libcomm"
 )
 
 // Conn exposes a set of callbacks for the various events that occur on a connection

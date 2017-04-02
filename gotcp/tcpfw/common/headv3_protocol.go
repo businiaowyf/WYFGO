@@ -6,7 +6,7 @@ import (
 	"io"
 	"net"
 
-	"github.com/BLHT/HT_GOGO/gotcp"
+	"github.com/businiaowyf/wyfgo/gotcp"
 )
 
 const (

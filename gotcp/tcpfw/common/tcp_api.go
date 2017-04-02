@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/BLHT/HT_GOGO/gotcp"
+	"github.com/businiaowyf/wyfgo/gotcp"
 )
 
 // Const

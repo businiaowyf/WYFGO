@@ -13,16 +13,16 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/BLHT/HT_GOGO/gotcp/tcpfw/common"
-	"github.com/BLHT/HT_GOGO/gotcp/tcpfw/include/ht_favorite"
+	"github.com/businiaowyf/wyfgo/gotcp/tcpfw/common"
+	"github.com/businiaowyf/wyfgo/gotcp/tcpfw/include/ht_favorite"
+	"github.com/go-ini/ini"
 	"github.com/golang/protobuf/proto"
 	"github.com/jessevdk/go-flags"
-	"gopkg.in/ini.v1"
 	// "strings"
 	// "time"
 )
 
-type Options struct {
+type ClientOptions struct {
 	// Example of verbosity with level
 	Verbose []bool `short:"v" long:"verbose" description:"Verbose output"`
 
@@ -32,19 +32,19 @@ type Options struct {
 	Text string `short:"t" long:"text" description:"text/tag" optional:"no"`
 }
 
-var options Options
+var client_options ClientOptions
 
-var parser = flags.NewParser(&options, flags.Default)
+var client_parser = flags.NewParser(&client_options, flags.Default)
 
 func main() {
 	// 处理命令行参数
-	if _, err := parser.Parse(); err != nil {
+	if _, err := client_parser.Parse(); err != nil {
 		fmt.Println("parse cmd line failed!")
 		os.Exit(1)
 	}
-	cmd, _ := strconv.Atoi(options.Cmd)
-	obid := options.Obid
-	text := options.Text
+	cmd, _ := strconv.Atoi(client_options.Cmd)
+	obid := client_options.Obid
+	text := client_options.Text
 
 	// 读取配置文件
 	cfg, err := ini.Load([]byte(""), "test_config.ini")

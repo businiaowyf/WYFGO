@@ -10,10 +10,10 @@ import (
 	"crypto/md5"
 	"fmt"
 
-	"github.com/BLHT/HT_GOGO/gotcp"
-	"github.com/BLHT/HT_GOGO/gotcp/libcomm"
-	"github.com/BLHT/HT_GOGO/gotcp/tcpfw/common"
-	"github.com/BLHT/HT_GOGO/gotcp/tcpfw/include/ht_favorite"
+	"github.com/businiaowyf/wyfgo/gotcp"
+	"github.com/businiaowyf/wyfgo/gotcp/libcomm"
+	"github.com/businiaowyf/wyfgo/gotcp/tcpfw/common"
+	"github.com/businiaowyf/wyfgo/gotcp/tcpfw/include/ht_favorite"
 	"github.com/go-ini/ini"
 	flags "github.com/jessevdk/go-flags"
 	mgo "gopkg.in/mgo.v2"
@@ -249,7 +249,7 @@ func procAddReq(c *gotcp.Conn, p gotcp.Packet) bool {
 	// 如果MD5重复则返回重复收藏的错误
 	if err != nil {
 		infoLog.Println("Insert failed, err=", err)
-		infoLog.Println(err.Code)
+		//infoLog.Println(err.Code)
 		result = uint16(ht_favorite.RET_CODE_RET_REPEAT_ADD)
 		return true
 	}

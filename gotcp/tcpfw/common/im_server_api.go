@@ -1,8 +1,6 @@
 package common
 
-import (
-	"github.com/BLHT/HT_GOGO/gotcp"
-)
+import "github.com/businiaowyf/wyfgo/gotcp"
 
 // Conn exposes a set of callbacks for the various events that occur on a connection
 type ImServerApi struct {

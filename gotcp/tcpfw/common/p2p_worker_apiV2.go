@@ -3,7 +3,7 @@ package common
 import (
 	"time"
 
-	"github.com/BLHT/HT_GOGO/gotcp"
+	"github.com/businiaowyf/wyfgo/gotcp"
 )
 
 // Conn exposes a set of callbacks for the various events that occur on a connection

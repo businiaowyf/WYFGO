@@ -1,8 +1,8 @@
 package common
 
 import (
-	"github.com/BLHT/HT_GOGO/gotcp"
-	"github.com/BLHT/HT_GOGO/gotcp/tcpfw/include/ht_push"
+	"github.com/businiaowyf/wyfgo/gotcp"
+	"github.com/businiaowyf/wyfgo/gotcp/tcpfw/include/ht_push"
 	"github.com/golang/protobuf/proto"
 )
 

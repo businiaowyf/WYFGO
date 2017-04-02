@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/BLHT/HT_GOGO/gotcp"
+	"github.com/businiaowyf/wyfgo/gotcp"
 )
 
 // Error type
