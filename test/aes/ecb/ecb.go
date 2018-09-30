@@ -8,14 +8,14 @@ import (
 
 func TestECB() {
 	key := "0123456789abcdef0123456789abcdef"
-	plaintext := "12345678901234567"
-	ciphertext, err := EcbEncrypt([]byte(plaintext), []byte(key))
+	plaintext := "12345678901234567890123456789012"
+	ciphertext, err := EcbEncryptNoPadding([]byte(plaintext), []byte(key))
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	fmt.Printf("%v -> %v, len=%v\n", plaintext, ciphertext, len(ciphertext))
-	result, err := EcbDecrypt([]byte(ciphertext), []byte(key))
+	result, err := EcbDecryptNoPadding([]byte(ciphertext), []byte(key))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -30,6 +30,20 @@ func EcbEncrypt(plaintext []byte, key []byte) ([]byte, error) {
 	}
 
 	plaintext = PKCS5Padding(plaintext, block.BlockSize())
+	ciphertext := plaintext
+	for len(plaintext) > 0 {
+		block.Encrypt(plaintext, plaintext[:block.BlockSize()])
+		plaintext = plaintext[block.BlockSize():]
+	}
+	return ciphertext, nil
+}
+
+func EcbEncryptNoPadding(plaintext []byte, key []byte) ([]byte, error) {
+	block, err := aes.NewCipher([]byte(key))
+	if err != nil {
+		return nil, err
+	}
+
 	ciphertext := plaintext
 	for len(plaintext) > 0 {
 		block.Encrypt(plaintext, plaintext[:block.BlockSize()])
@@ -55,6 +69,20 @@ func EcbDecrypt(ciphertext []byte, key []byte) ([]byte, error) {
 	return plaintext, nil
 }
 
+func EcbDecryptNoPadding(ciphertext []byte, key []byte) ([]byte, error) {
+	block, err := aes.NewCipher([]byte(key))
+	if err != nil {
+		return nil, err
+	}
+
+	plaintext := ciphertext
+	for len(ciphertext) > 0 {
+		block.Decrypt(ciphertext, ciphertext[:block.BlockSize()])
+		ciphertext = ciphertext[block.BlockSize():]
+	}
+
+	return plaintext, nil
+}
 func PKCS5Padding(text []byte, blockSize int) []byte {
 	padding := blockSize - len(text)%blockSize
 	padtext := bytes.Repeat([]byte{byte(padding)}, padding)
